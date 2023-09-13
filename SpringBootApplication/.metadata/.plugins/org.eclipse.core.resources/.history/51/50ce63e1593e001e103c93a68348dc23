@@ -1,0 +1,54 @@
+package com.example.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.*;
+
+@Entity
+@Table(name="artists")
+public class Artist 
+{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	int id;
+	
+	@Column
+	String Fname;
+	
+	@Column
+	String Lname;
+	
+	@Column
+	String email;
+	
+	@Column
+	String Mobile;
+	
+	@Column
+	String Studio;
+	
+	@Column
+	String Address;
+	
+	@Column
+	boolean TinyInt;
+
+	
+	@OneToOne
+    @JoinColumn(name = "id")
+    @MapsId
+    Login login;
+	
+	@OneToMany
+    @JoinColumn(name = "id")
+    @MapsId
+    Membership membership;
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,42 @@
+package com.example.demo.repositories;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.entities.Login;
+@Transactional
+@Repository
+public interface LoginRepository extends JpaRepository<Login, Integer> {
+
+	@Modifying
+	@Query("update Login set username=:username, password= :password where id = :id")
+	public int updateLoginpassword(int id, String username, String password);
+	
+	
+	@Query("select l from Login l where l.username = :uid and l.password = :pwd")
+	public Optional<Login> getLogin(String uid,String pwd);
+	
+	//@Query("select l from Login l where l.status<> :true")
+	@Query(value = "select * from login where status=0;" , nativeQuery = true)
+	public List<Login> getnonaproved();
+	
+	@Query(value = "select * from login where status=1;" , nativeQuery = true)
+	public List<Login> getapproved();
+	
+	@Modifying
+	@Query("update Login set status = 1 where id = :id")
+	public int updateapproved(int id);
+	
+	@Query("select l from Login l where roles_id=2")
+	public List<Login> getalllogin();
+}
+
+//@Query(value = "" , nativeQuery = true);
+

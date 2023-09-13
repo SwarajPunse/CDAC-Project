@@ -1,0 +1,167 @@
+ package com.example.demo.controller;
+
+import java.util.List;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entities.Artist;
+import com.example.demo.entities.ArtistReg;
+import com.example.demo.entities.Login;
+import com.example.demo.entities.Membership;
+import com.example.demo.entities.Roles;
+import com.example.demo.services.ArtistServices;
+import com.example.demo.services.LoginServices;
+import com.example.demo.services.Membershipservice;
+import com.example.demo.services.Rolesservices;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class ArtistController {
+
+	@Autowired
+	ArtistServices aserv;
+	
+	@Autowired
+	LoginServices lserv;
+	
+	@Autowired
+	Rolesservices rserv;
+	
+	@Autowired
+	Membershipservice mserv;
+	
+	@GetMapping("/getallartist")
+	public List<Artist> getAllartist()
+	{
+		return aserv.getallArtist(); 
+	}
+	
+	@GetMapping("/getartistbyname")
+	public List<Artist> getArtistbyname(@RequestParam("fname") String Fname)
+	{
+		 return aserv.getArtistbyname(Fname);
+	}
+	
+	@PostMapping("/registerartist")
+	public Artist regArtist(@RequestBody ArtistReg ar)
+	{
+			Roles r = rserv.getRole(2);	
+			Login l = new Login(ar.getUsername(),ar.getPassword(),false,r,ar.getAnswer(),ar.getQuestion());
+			Login saved = lserv.addLogin(l);
+			
+			Membership m=mserv.getMembership(ar.getM_id());
+			Artist a=new Artist(ar.getFname(),ar.getLname(),ar.getEmail(),ar.getMobile_no(),ar.getStudio(),ar.getAddress(),false,m,saved);
+			return aserv.addArtist(a);
+	}
+	
+	
+	
+	@PostMapping("/addartist")
+	public Artist addArtist(@RequestBody Artist a)
+	{
+		return aserv.addArtist(a);
+	}
+	
+	@GetMapping("/deleteartist")
+	public String deleteArtist(@RequestParam("id") int id)
+	{
+		aserv.deleteArtist(id);
+		
+		return "artist with "+id+" deleted";
+	}
+	
+	@GetMapping("/getnonapartist")
+	public List<Artist> getnonApproved()
+	{
+		return aserv.getnotapproved();
+	}
+	
+	@GetMapping("/getartistbyloginid")
+	
+	public Artist getArtistbylogin(@RequestParam("login_id") int login_id)
+	{
+		Login l= lserv.getlogin(login_id);
+		return aserv.getArtistbyloginid(l);
+	}
+	
+	@GetMapping("/updateapprove")
+	public int updatestat(@RequestParam("id") int id)
+	{
+		
+		return aserv.updatestatus( id);
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//package com.example.demo.controllers;
+//
+//import java.util.List;
+//
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import com.example.demo.entities.Artist;
+//import com.example.demo.services.ArtistServices;
+//
+//@CrossOrigin(origins = "http://localhost:3000")
+//@RestController
+//public class ArtistController {
+//
+//	@Autowired
+//	ArtistServices aserv;
+//	@GetMapping("/getallartist")
+//	public List<Artist> getAllartist()
+//	{
+//		return aserv.getallArtist(); 
+//	}
+//	
+//	@PostMapping("/registerartist")
+//	public Artist addArtist(@RequestBody Artist a)
+//	{
+//		return aserv.addArtist(a);
+//	}
+//	
+//	@GetMapping("/deleteartist")
+//	public String deleteArtist(@RequestParam("id") int id)
+//	{
+//		aserv.deleteArtist(id);
+//		
+//		return "artist with "+id+" deleted";
+//	}
+//}

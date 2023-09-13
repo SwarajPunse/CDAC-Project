@@ -1,0 +1,211 @@
+package com.example.demo.entities;
+
+import javax.persistence.CascadeType;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name="artists")
+public class Artist {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int id;
+	@Column
+	public String fname;
+	@Column
+	public String lname;
+	@Column
+	public String email;
+	@Column
+	public String mobile_no;
+	@Column
+	public String studio;
+	@Column
+	public String address;
+	@Column
+	public boolean approved;
+	@JsonIgnoreProperties("id")
+	@ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
+	@JoinColumn(name="m_id")
+	public Membership member;
+	@JsonIgnoreProperties("id")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="login_id")
+	public Login lo;
+	
+	
+
+	public Artist() {
+		super();
+	}
+
+
+
+	public Artist(int id, String fname, String lname, String email, String mobile_no, String studio,
+			String address, boolean approved, Membership member, Login lo) {
+		super();
+		this.id = id;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.mobile_no = mobile_no;
+		this.studio = studio;
+		this.address = address;
+		this.approved = approved;
+		this.member = member;
+		this.lo = lo;
+	}
+
+
+
+	public Artist(String fname, String lname, String email, String mobile_no, String studio, String address,
+			boolean approved, Membership member, Login lo) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.mobile_no = mobile_no;
+		this.studio = studio;
+		this.address = address;
+		this.approved = approved;
+		this.member = member;
+		this.lo = lo;
+	}
+	
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getFname() {
+		return fname;
+	}
+
+
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+
+
+	public String getLname() {
+		return lname;
+	}
+
+
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getMobile_no() {
+		return mobile_no;
+	}
+
+
+
+	public void setMobile_no(String mobile_no) {
+		this.mobile_no = mobile_no;
+	}
+
+
+
+	public String getStudio() {
+		return studio;
+	}
+
+
+
+	public void setStudio(String studio) {
+		this.studio = studio;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+
+
+	public Membership getMember() {
+		return member;
+	}
+
+
+
+	public void setMember(Membership member) {
+		this.member = member;
+	}
+
+
+
+	public Login getLo() {
+		return lo;
+	}
+
+
+
+	public void setLo(Login lo) {
+		this.lo = lo;
+	}
+	
+	
+	
+	
+
+}

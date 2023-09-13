@@ -1,0 +1,85 @@
+package com.example.demo.entities;
+
+
+import java.sql.Date;
+import java.util.List;
+
+public class OrderDummy {
+
+	
+	int custid;
+	int Corporateid;
+	List<OrderitemDummy> orderlist;
+	String delstatus;
+	float price;
+	Date odate;
+	
+	public int getCustid() {
+		return custid;
+	}
+	public void setCustid(int custid) {
+		this.custid = custid;
+	}
+	public int getCorporateid() {
+		return Corporateid;
+	}
+	public void setCorporateid(int corporateid) {
+		Corporateid = corporateid;
+	}
+	public List<OrderitemDummy> getOrderlist() {
+		return orderlist;
+	}
+	public void setOrderlist(List<OrderitemDummy> orderlist) {
+		this.orderlist = orderlist;
+	}
+	public String getDelstatus() {
+		return delstatus;
+	}
+	public void setDelstatus(String delstatus) {
+		this.delstatus = delstatus;
+	}
+	
+	
+	
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	public Date getOdate() {
+		return odate;
+	}
+	public void setOdate(Date odate) {
+		this.odate = odate;
+	}
+	
+	
+	public OrderDummy(int custid, List<OrderitemDummy> orderlist, float price, Date odate) {
+		super();
+		this.custid = custid;
+		this.orderlist = orderlist;
+		this.price = price;
+		this.odate = odate;
+	}
+	public OrderDummy(int corporateid, List<OrderitemDummy> orderlist, String delstatus, float price) {
+		super();
+		this.Corporateid = corporateid;
+		this.orderlist = orderlist;
+		this.price = price;
+	}
+	public OrderDummy(int custid, List<OrderitemDummy> orderlist, float price) {
+		super();
+		this.custid = custid;
+		this.orderlist = orderlist;
+		this.price = price;
+	}
+	public OrderDummy() {
+		super();
+	}
+	
+	
+	
+	
+	
+}

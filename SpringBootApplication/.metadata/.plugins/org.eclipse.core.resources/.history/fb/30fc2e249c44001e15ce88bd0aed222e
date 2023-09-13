@@ -1,0 +1,28 @@
+package com.example.demo.repositories;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.entities.Artwork;
+import com.example.demo.entities.Artwork_Category;
+@Transactional
+@Repository
+public interface ArtworkRepository extends JpaRepository<Artwork, Integer> {
+
+	@Modifying
+	@Query("update Artwork set price= :f where id= :id")
+	public int updateprise(int id,float f);
+	
+	@Modifying
+	@Query("update Artwork set art_img= :file where id= :id")
+	public int uploadphoto(int id, byte [] file);
+	
+	@Query("select a from Artwork a where a.category= :c")
+	public List<Artwork> getallartofcat(Artwork_Category c);
+}

@@ -1,0 +1,89 @@
+package com.example.demo.entities;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+	@Table(name="memberships")
+	public class Membership {
+	@Id
+	
+	
+	int id;
+	@Column
+	String mname;
+	@Column
+	int duration;
+	@Column
+	float price;
+	
+	@JsonIgnoreProperties("memberships")
+	@OneToMany(mappedBy ="m_id",cascade=CascadeType.ALL)
+	Set<Customer> customer;
+	
+	
+	public Membership()
+	{
+		
+	}
+	
+	
+	public Membership(int id) {
+		super();
+		this.id = id;
+	}
+
+
+	public Membership(int id, String mname, int duration, float price) {
+		super();
+		this.id = id;
+		this.mname = mname;
+		this.duration = duration;
+		this.price = price;
+	}
+	
+	public Membership( String mname, int duration, float price) {
+		super();
+		
+		this.mname = mname;
+		this.duration = duration;
+		this.price = price;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	}

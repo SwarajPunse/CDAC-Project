@@ -1,0 +1,91 @@
+package com.example.demo.entities;
+
+import java.sql.Date;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="orders")
+public class Order {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+
+	@ManyToOne
+	@JoinColumn(name="cust_id")
+	Customer customer;
+	
+	@ManyToOne
+	@JoinColumn(name="corporate_id")
+	Corporate corporate;
+	
+	@Column
+	float price;
+	
+	@Column
+	Date date;
+
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Corporate getCorporate() {
+		return corporate;
+	}
+
+	public void setCorporate(Corporate corporate) {
+		this.corporate = corporate;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Order(Customer customer, float price, Date date) {
+		super();
+		this.customer = customer;
+		this.price = price;
+		this.date = date;
+	}
+
+	public Order(Corporate corporate, float price, Date date) {
+		super();
+		this.corporate = corporate;
+		this.price = price;
+		this.date = date;
+	}
+	
+	
+	
+	
+
+}
